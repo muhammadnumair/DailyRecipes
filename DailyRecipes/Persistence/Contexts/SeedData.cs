@@ -39,7 +39,8 @@ namespace DailyRecipes
 
                 _db.Categories.Add(new Category
                 {
-                    Title = "Appetizers"
+                    Title = "Appetizers",
+                    Excerpt = "Love and Lemons"
                 });
             }
 

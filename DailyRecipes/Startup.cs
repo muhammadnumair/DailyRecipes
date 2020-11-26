@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DailyRecipes.Domain.Repositories;
 using DailyRecipes.Domain.Services;
 using DailyRecipes.Persistence.Repositories;
@@ -37,6 +38,7 @@ namespace DailyRecipes
             services.AddSwaggerDocument();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
