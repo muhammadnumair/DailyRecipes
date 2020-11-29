@@ -42,7 +42,7 @@ namespace DailyRecipes.Controllers
                 var result = _categoryService.GetCategories();
                 var categories_resources = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryResource>>(result);
                 if (result.Any())
-                    return Ok(result);
+                    return Ok(categories_resources);
                 else
                     return NoContent();
             }

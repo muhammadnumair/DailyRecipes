@@ -18,16 +18,11 @@ namespace DailyRecipes.Controllers
     [Produces("application/json")]
     public class RecipesController : ControllerBase
     {
-        [Route("api/[controller]")]
-        [ApiController]
-        [Produces("application/json")]
-        public class CategoriesController : ControllerBase
-        {
             private readonly IRecipeService _recipeService;
             private readonly ILogger<Program> _logger;
             private readonly IMapper _mapper;
 
-            public CategoriesController(IRecipeService RecipeService, ILogger<Program> logger, IMapper mapper)
+            public RecipesController(IRecipeService RecipeService, ILogger<Program> logger, IMapper mapper)
             {
                 _recipeService = RecipeService;
                 _logger = logger;
@@ -39,21 +34,21 @@ namespace DailyRecipes.Controllers
             [Produces("application/json")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status204NoContent)]
-            public IActionResult GetCategories()
+            public IActionResult GetRecipes()
             {
                 try
                 {
-                    _logger.LogInformation("Fetching Categories List From Database");
+                    _logger.LogInformation("Fetching Recipes List From Database");
                     var result = _recipeService.GetRecipes();
-                    var categories_resources = _mapper.Map<IEnumerable<Recipe>, IEnumerable<RecipeResource>>(result);
+                    var Recipes_resources = _mapper.Map<IEnumerable<Recipe>, IEnumerable<RecipeResource>>(result);
                     if (result.Any())
-                        return Ok(result);
+                        return Ok(Recipes_resources);
                     else
                         return NoContent();
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation(e, "Unable to get categories");
+                    _logger.LogInformation(e, "Unable to get Recipes");
                     return ValidationProblem(e.Message);
                 }
 
@@ -140,7 +135,6 @@ namespace DailyRecipes.Controllers
                     _logger.LogInformation(e, "An error occurred when saving the Recipe");
                     return ValidationProblem(e.Message);
                 }
-            }
         }
     }
 }

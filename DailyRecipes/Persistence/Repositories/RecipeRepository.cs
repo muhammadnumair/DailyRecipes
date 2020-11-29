@@ -1,6 +1,7 @@
 ﻿using DailyRecipes.Domain.Repositories;
 using DailyRecipes.Domain.Services.Communication;
 using DailyRecipes.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace DailyRecipes.Persistence.Repositories
 
         public IEnumerable<Recipe> GetRecipes()
         {
-            var result = _context.Categories as IQueryable<Recipe>;
+            var result = _context.Recipes.Include(p => p.Category).Include(p => p.Needed).Include(p => p.Ingredient) as IQueryable<Recipe>;
             return result.OrderBy(c => c.Title).AsEnumerable<Recipe>();
         }
 

@@ -16,6 +16,12 @@ namespace DailyRecipes.Mapping
             CreateMap<Category, CategoryResource>();
             CreateMap<SaveCategoryResource, Category>();
             CreateMap<Category, CategoryResource>();
+
+
+            // Categories Models Mapping
+            CreateMap<Recipe, RecipeResource>();
+            CreateMap<SaveRecipeResource, Recipe>();
+            CreateMap<Recipe, RecipeResource>();
         }
     }
 }

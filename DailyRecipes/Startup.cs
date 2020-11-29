@@ -38,6 +38,8 @@ namespace DailyRecipes
             services.AddSwaggerDocument();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IRecipeService, RecipeService>();
+            services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddAutoMapper(typeof(Startup));
         }
 
