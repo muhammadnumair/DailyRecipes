@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using DailyRecipes.Controllers;
 using DailyRecipes.Domain.Services;
@@ -20,70 +19,52 @@ namespace DailyRecipes.Tests.Unit
         private SaveCategoryResource CreateRandomCategory() =>
             new Filler<SaveCategoryResource>().Create();
 
-        [Fact]
-        public void GetCategories_Success()
+        private Category CreateRandomCategory2() =>
+            new Filler<Category>().Create();
+
+        private readonly CategoriesController categoriesController;
+        public CategoriesControllerTest()
         {
             // Arrange
             var mockService = new Mock<ICategoryService>();
+            var categoryResponse = new CategoryResponse(CreateRandomCategory2());
+            var category = new Mock<Category>();
             mockService.Setup(s => s.GetCategories()).Returns(new List<DailyRecipes.Models.Category>());
+            mockService.Setup(s => s.SaveCategory(It.IsAny<Category>()))
+                .Returns(categoryResponse);
+            mockService.Setup(s => s.UpdateCategory(It.IsAny<Guid>(), It.IsAny<Category>()))
+                .Returns(categoryResponse);
 
             var logger = new Mock<ILogger<Program>>();
-            var mockMapper = new Mock<IMapper>();
+            var mappingConfig = new MapperConfiguration(mc => {
+                mc.AddProfile(new Mapping.ModelToResourceProfile());
+            });
+            var mockMapper = mappingConfig.CreateMapper();
 
             //IEnumerable<Category>
-            var controller = new CategoriesController(mockService.Object, logger.Object, mockMapper.Object);
+            categoriesController = new CategoriesController(mockService.Object, logger.Object, mockMapper);
+        }
 
-            // Act
-            var result = controller.GetCategories();
-
-            // Assert
+        [Fact]
+        public void GetCategories_Success()
+        {
+            var result = categoriesController.GetCategories();
             result.Should().NotBeNull();
         }
 
         [Fact]
         public void SaveCategory_Success()
         {
-            // Arrange
-            var mockService = new Mock<ICategoryService>();
-            var category = new Mock<Category>();
-            mockService.Setup(s => s.SaveCategory(new Category()))
-                .Returns(new CategoryResponse(new Category()));
-
-            var logger = new Mock<ILogger<Program>>();
-            var mockMapper = new Mock<IMapper>();
-
-            //IEnumerable<Category>
-            var controller = new CategoriesController(mockService.Object, logger.Object, mockMapper.Object);
-
-            // Act
-            var result = controller.SaveCategory(CreateRandomCategory());
-
-            // Assert
+            var result = categoriesController.SaveCategory(CreateRandomCategory());
             result.Should().NotBeNull();
         }
 
         [Fact]
         public void UpdateCategory_Success()
         {
-            // Arrange
-            var mockService = new Mock<ICategoryService>();
-            var category = new Mock<Category>();
-            mockService.Setup(s => s.UpdateCategory(new Guid(), category.Object))
-                .Returns(new DailyRecipes.Domain.Services.Communication.CategoryResponse(new Category()));
-
-            var logger = new Mock<ILogger<Program>>();
-            var mockMapper = new Mock<IMapper>();
-
-            //IEnumerable<Category>
-            var controller = new CategoriesController(mockService.Object, logger.Object, mockMapper.Object);
-
-            // Act
-            var mockModel = new Mock<SaveCategoryResource>();
-            var result = controller.UpdateCategory(new Guid(), mockModel.Object);
-
-            // Assert
+            var result = categoriesController.UpdateCategory(new Guid(), CreateRandomCategory());
             result.Should().NotBeNull();
-            result.Should().BeEquivalentTo(Task.CompletedTask);
+            //result.Should().BeEquivalentTo(Task.CompletedTask);
         }
     }
 }
