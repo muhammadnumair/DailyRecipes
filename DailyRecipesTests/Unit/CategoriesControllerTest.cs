@@ -22,12 +22,12 @@ namespace DailyRecipes.Tests.Unit
         private Category CreateRandomCategory2() =>
             new Filler<Category>().Create();
 
-        private readonly CategoriesController categoriesController;
+        private readonly CategoriesController _categoriesController;
         public CategoriesControllerTest()
         {
             var mockService = new Mock<ICategoryService>();
             var categoryResponse = new CategoryResponse(CreateRandomCategory2());
-            mockService.Setup(s => s.GetCategories()).Returns(new List<DailyRecipes.Models.Category>());
+            mockService.Setup(s => s.GetCategories()).Returns(new List<Category>());
             mockService.Setup(s => s.SaveCategory(It.IsAny<Category>()))
                 .Returns(categoryResponse);
             mockService.Setup(s => s.UpdateCategory(It.IsAny<Guid>(), It.IsAny<Category>()))
@@ -41,34 +41,34 @@ namespace DailyRecipes.Tests.Unit
 
             var mockMapper = mappingConfig.CreateMapper();
 
-            categoriesController = new CategoriesController(mockService.Object, logger.Object, mockMapper);
+            _categoriesController = new CategoriesController(mockService.Object, logger.Object, mockMapper);
         }
 
         [Fact]
         public void GetCategories_Success()
         {
-            var result = categoriesController.GetCategories();
+            var result = _categoriesController.GetCategories();
             result.Should().NotBeNull();
         }
 
         [Fact]
         public void SaveCategory_Success()
         {
-            var result = categoriesController.SaveCategory(CreateRandomCategory());
+            var result = _categoriesController.SaveCategory(CreateRandomCategory());
             result.Should().NotBeNull();
         }
 
         [Fact]
         public void UpdateCategory_Success()
         {
-            var result = categoriesController.UpdateCategory(new Guid(), CreateRandomCategory());
+            var result = _categoriesController.UpdateCategory(new Guid(), CreateRandomCategory());
             result.Should().NotBeNull();
         }
 
         [Fact]
         public void DeleteCategory_Success()
         {
-            var result = categoriesController.DeleteCategory(new Guid());
+            var result = _categoriesController.DeleteCategory(new Guid());
             result.Should().NotBeNull();
         }
     }

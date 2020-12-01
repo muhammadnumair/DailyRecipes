@@ -5,8 +5,6 @@ using DailyRecipes.Domain.Services.Communication;
 using DailyRecipes.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DailyRecipes.Services
 {
@@ -17,7 +15,7 @@ namespace DailyRecipes.Services
 
         public RecipeService(IRecipeRepository recipeRepository, IMapper mapper)
         {
-            this._recipeRepository = recipeRepository;
+            _recipeRepository = recipeRepository;
             _mapper = mapper;
         }
 

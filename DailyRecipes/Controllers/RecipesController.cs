@@ -135,6 +135,6 @@ namespace DailyRecipes.Controllers
                     _logger.LogInformation(e, "An error occurred when saving the Recipe");
                     return ValidationProblem(e.Message);
                 }
-        }
+            }
     }
 }
