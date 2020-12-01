@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net.Http;
 using RESTFulSense.Clients;
 namespace DailyRecipes.Tests.Integration.Brokers
@@ -14,9 +11,9 @@ namespace DailyRecipes.Tests.Integration.Brokers
 
         public DailyRecipesApiBroker()
         {
-            this.webApplicationFactory = new WebApplicationFactory<Startup>();
-            this.baseClient = this.webApplicationFactory.CreateClient();
-            this.apiFactoryClient = new RESTFulApiFactoryClient(this.baseClient);
+            webApplicationFactory = new WebApplicationFactory<Startup>();
+            baseClient = webApplicationFactory.CreateClient();
+            apiFactoryClient = new RESTFulApiFactoryClient(baseClient);
         }
     }
 }

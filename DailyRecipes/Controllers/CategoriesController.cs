@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DailyRecipes.Domain.Services;
 using DailyRecipes.Models;
 using DailyRecipes.Resources;
@@ -40,9 +39,9 @@ namespace DailyRecipes.Controllers
             {
                 _logger.LogInformation("Fetching Categories List From Database");
                 var result = _categoryService.GetCategories();
-                var categories_resources = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryResource>>(result);
+                var categoriesResources = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryResource>>(result);
                 if (result.Any())
-                    return Ok(categories_resources);
+                    return Ok(categoriesResources);
                 else
                     return NoContent();
             }

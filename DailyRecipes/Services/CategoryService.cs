@@ -3,11 +3,8 @@ using DailyRecipes.Domain.Repositories;
 using DailyRecipes.Domain.Services;
 using DailyRecipes.Domain.Services.Communication;
 using DailyRecipes.Models;
-using DailyRecipes.Resources;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DailyRecipes.Services
 {
@@ -18,7 +15,7 @@ namespace DailyRecipes.Services
 
         public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
         {
-            this._categoryRepository = categoryRepository;
+            _categoryRepository = categoryRepository;
             _mapper = mapper;
         }
 

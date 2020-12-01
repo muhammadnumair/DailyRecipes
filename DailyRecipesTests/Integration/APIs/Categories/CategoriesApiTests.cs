@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using DailyRecipes.Tests.Models;
 using Tynamix.ObjectFiller;
 using FluentAssertions;
 using DailyRecipes.Tests.Resources;

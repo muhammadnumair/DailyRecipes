@@ -13,17 +13,17 @@ namespace DailyRecipes.Tests.Integration.Brokers
 
         public Task<HttpResponseMessage> PostRecipeAsync(HttpContent body)
         {
-            var response = this.baseClient.PostAsync(RecipesRelativeUrl, body);
+            var response = baseClient.PostAsync(RecipesRelativeUrl, body);
             return response;
         }
 
         public Task<HttpResponseMessage> GetRecipeAsync()
         {
-            var response = this.baseClient.GetAsync(RecipesRelativeUrl);
+            var response = baseClient.GetAsync(RecipesRelativeUrl);
             return response;
         }
 
         public async ValueTask<Recipe> DeleteRecipeAsync(Guid recipeId) =>
-            await this.apiFactoryClient.DeleteContentAsync<Recipe>($"{RecipesRelativeUrl}/{recipeId}");
+            await apiFactoryClient.DeleteContentAsync<Recipe>($"{RecipesRelativeUrl}/{recipeId}");
     }
 }
