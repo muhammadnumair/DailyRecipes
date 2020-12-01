@@ -25,23 +25,22 @@ namespace DailyRecipes.Tests.Unit
         private readonly CategoriesController categoriesController;
         public CategoriesControllerTest()
         {
-            // Arrange
             var mockService = new Mock<ICategoryService>();
             var categoryResponse = new CategoryResponse(CreateRandomCategory2());
-            var category = new Mock<Category>();
             mockService.Setup(s => s.GetCategories()).Returns(new List<DailyRecipes.Models.Category>());
             mockService.Setup(s => s.SaveCategory(It.IsAny<Category>()))
                 .Returns(categoryResponse);
             mockService.Setup(s => s.UpdateCategory(It.IsAny<Guid>(), It.IsAny<Category>()))
                 .Returns(categoryResponse);
+            mockService.Setup(s => s.DeleteCategory(It.IsAny<Guid>())).Returns(categoryResponse);
 
             var logger = new Mock<ILogger<Program>>();
             var mappingConfig = new MapperConfiguration(mc => {
                 mc.AddProfile(new Mapping.ModelToResourceProfile());
             });
+
             var mockMapper = mappingConfig.CreateMapper();
 
-            //IEnumerable<Category>
             categoriesController = new CategoriesController(mockService.Object, logger.Object, mockMapper);
         }
 
@@ -64,7 +63,13 @@ namespace DailyRecipes.Tests.Unit
         {
             var result = categoriesController.UpdateCategory(new Guid(), CreateRandomCategory());
             result.Should().NotBeNull();
-            //result.Should().BeEquivalentTo(Task.CompletedTask);
+        }
+
+        [Fact]
+        public void DeleteCategory_Success()
+        {
+            var result = categoriesController.DeleteCategory(new Guid());
+            result.Should().NotBeNull();
         }
     }
 }
