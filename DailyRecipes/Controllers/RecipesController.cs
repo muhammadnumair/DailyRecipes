@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DailyRecipes.Domain.Models;
 using DailyRecipes.Domain.Services;
 using DailyRecipes.Extensions;
 using DailyRecipes.Models;
@@ -96,8 +97,8 @@ namespace DailyRecipes.Controllers
                     var Recipe = _mapper.Map<SaveRecipeResource, Recipe>(resource);
                     var result = _recipeService.UpdateRecipe(id, Recipe);
 
-                    if (!result.Success)
-                        return BadRequest(result.Success);
+                    if (result == null || !result.Success)
+                        return NotFound();
 
                     var RecipeResource = _mapper.Map<Recipe, RecipeResource>(result.Recipe);
                     // Updating Id in case of update
@@ -124,7 +125,7 @@ namespace DailyRecipes.Controllers
 
                     var result = _recipeService.DeleteRecipe(id);
 
-                    if (!result.Success)
+                    if (!result.Success || result == null)
                         return BadRequest(result.Success);
 
                     var RecipeResource = _mapper.Map<Recipe, RecipeResource>(result.Recipe);

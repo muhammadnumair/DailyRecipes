@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using DailyRecipes.Models;
 using DailyRecipes.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DailyRecipes.Domain.Models;
 
 namespace DailyRecipes.Mapping
 {

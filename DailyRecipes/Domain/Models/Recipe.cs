@@ -1,11 +1,9 @@
-﻿using DailyRecipes.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using DailyRecipes.Extensions;
+using DailyRecipes.Models;
 
-namespace DailyRecipes.Models
+namespace DailyRecipes.Domain.Models
 {
     public class Recipe
     {

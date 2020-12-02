@@ -1,10 +1,8 @@
-﻿using DailyRecipes.Extensions;
-using DailyRecipes.Models;
+﻿using DailyRecipes.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using DailyRecipes.Domain.Models;
 
 namespace DailyRecipes.Resources
 {

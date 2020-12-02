@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DailyRecipes.Extensions;
 using AutoMapper;
+using DailyRecipes.Domain.Models;
 
 namespace DailyRecipes.Controllers
 {
@@ -95,8 +96,8 @@ namespace DailyRecipes.Controllers
                 var category = _mapper.Map<SaveCategoryResource, Category>(resource);
                 var result = _categoryService.UpdateCategory(id, category);
 
-                if (!result.Success)
-                    return BadRequest(result.Success);
+                if (result == null || !result.Success)
+                    return NotFound();
 
                 var categoryResource = _mapper.Map<Category, CategoryResource>(result.Category);
                 // Updating Id in case of update
@@ -123,7 +124,7 @@ namespace DailyRecipes.Controllers
 
                 var result = _categoryService.DeleteCategory(id);
 
-                if (!result.Success)
+                if (!result.Success || result == null)
                     return BadRequest(result.Success);
 
                 var categoryResource = _mapper.Map<Category, CategoryResource>(result.Category);
